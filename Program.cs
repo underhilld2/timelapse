@@ -39,7 +39,7 @@ namespace TimeLapse
             {
                 var startTime = DateTime.UtcNow;
                 Console.WriteLine("Start processing: {0}", startTime.ToShortTimeString());
-                TimelapseProcessing.CreateTimelapse(sourcePath, imageType, tempPath, outputFile, width, height, framerate, numDays);
+                TimelapseProcessing.CreateTimelapse(sourcePath, imageType, tempPath, width, height, outputFile, numDays);
                 File.Copy(Path.Combine(tempPath, $"{outputFile}.mp4"), Path.Combine(outPath, $"{outputFile}.mp4"), true);
                 File.Copy(Path.Combine(tempPath, $"{outputFile}.webm"), Path.Combine(outPath, $"{outputFile}.webm"), true);
                 File.Delete(Path.Combine(tempPath, $"{outputFile}.mp4"));
