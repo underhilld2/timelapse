@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using TimeLapse.VidoeLogic;
 using NReco.VideoConverter;
+using TimeLapse.Azure;
 
 namespace TimeLapse
 {
@@ -35,6 +36,7 @@ namespace TimeLapse
             Console.WriteLine("Arg  framerate  : '{0}' ", framerate);
             Console.WriteLine("Arg  numDays  : '{0}' ", numDays);
 
+
             if (!string.IsNullOrEmpty(sourcePath) && !string.IsNullOrEmpty(imageType) && !string.IsNullOrEmpty(outPath))
             {
                 var startTime = DateTime.UtcNow;
@@ -42,6 +44,8 @@ namespace TimeLapse
                 TimelapseProcessing.CreateTimelapse(sourcePath, imageType, tempPath, width, height, outputFile, numDays);
                 File.Copy(Path.Combine(tempPath, $"{outputFile}.mp4"), Path.Combine(outPath, $"{outputFile}.mp4"), true);
                 File.Copy(Path.Combine(tempPath, $"{outputFile}.webm"), Path.Combine(outPath, $"{outputFile}.webm"), true);
+                UploadFiles.Upload(tempPath, $"{outputFile}.mp4", "timelapse");
+                UploadFiles.Upload(tempPath, $"{outputFile}.webm", "timelapse");
                 File.Delete(Path.Combine(tempPath, $"{outputFile}.mp4"));
                 File.Delete(Path.Combine(tempPath, $"{outputFile}.webm"));
                 var endTime = DateTime.UtcNow;

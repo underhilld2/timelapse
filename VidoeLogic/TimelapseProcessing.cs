@@ -4,6 +4,9 @@ using System;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using Microsoft.WindowsAzure; // Namespace for CloudConfigurationManager
+using Microsoft.WindowsAzure.Storage; // Namespace for CloudStorageAccount
+using Microsoft.WindowsAzure.Storage.Blob; // Namespace for Blob storage types
 
 namespace TimeLapse.VidoeLogic
 {
@@ -52,6 +55,9 @@ namespace TimeLapse.VidoeLogic
                     settings.VideoFrameRate = rate;
                     ffMpeg.ConvertMedia(outputMp4, Format.mp4, outputWebm, Format.webm, settings);
                 }
+
+                // upload to blob storage
+                
             }
         }
     }
